@@ -1,18 +1,49 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class='home'>
+    <input type='text' placeholder='Username' v-model='username'>
+    <br>
+    <!--パスワード-->
+    <input type='password' placeholder='Password' v-model='password'>
+    <br>
+    <!--サインインボタン-->
+    <button @click='signIn' class='btn'>SignIn</button>
+    <br>
+
+    <router-link to="/signup">サインアップはこちら</router-link>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// Firebase読み込み
+import firebase from 'firebase'
 
 export default {
   name: 'home',
-  components: {
-    HelloWorld
+  methods: {
+    signIn: function () {
+      // サインイン処理
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.username, this.password)
+        .then(
+          user => {
+            console.log('Success!')
+            console.dir(this)
+            this.$router.push('/about')
+            console.log('hey')
+            // router.push('about')
+          },
+          err => {
+            alert(err.message)
+          }
+        )
+    }
+  },
+  data () {
+    return {
+      username: '',
+      password: ''
+    }
   }
 }
 </script>
