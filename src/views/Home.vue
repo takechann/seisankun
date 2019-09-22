@@ -1,9 +1,9 @@
 <template>
   <div class='home'>
-    <input type='text' placeholder='Username' v-model='username'>
+    <input type='text' placeholder='e-mailアドレス' v-model='username'>
     <br>
     <!--パスワード-->
-    <input type='password' placeholder='Password' v-model='password'>
+    <input type='password' placeholder='パスワード' v-model='password'>
     <br>
     <!--サインインボタン-->
     <button @click='signIn' class='btn'>SignIn</button>
@@ -27,11 +27,8 @@ export default {
         .signInWithEmailAndPassword(this.username, this.password)
         .then(
           user => {
-            console.log('Success!')
-            console.dir(this)
+            alert('ログイン成功 => 次の画面へ遷移')
             this.$router.push('/about')
-            console.log('hey')
-            // router.push('about')
           },
           err => {
             alert(err.message)

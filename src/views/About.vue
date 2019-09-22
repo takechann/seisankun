@@ -1,5 +1,5 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <p>参加している旅行一覧</p>
   </div>
 </template>

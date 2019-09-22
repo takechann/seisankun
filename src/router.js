@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import About from './views/About.vue'
 import Signup from './components/Signup'
 import Signin from './components/Signin'
 import firebase from 'firebase'
@@ -10,6 +11,10 @@ Vue.use(Router)
 let router = new Router({
   routes: [
     {
+      path: '*',
+      redirect: 'home'
+    },
+    {
       path: '/',
       name: 'home',
       component: Home
@@ -17,10 +22,8 @@ let router = new Router({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      component: About,
+      meta: { requiresAuth: true }
     },
     {
       path: '/signup',
@@ -38,20 +41,23 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   if (requiresAuth) {
-    // このルートはログインされているかどうか認証が必要です。
-    // もしされていないならば、ログインページにリダイレクトします。
+    // ユーザがログインされているかどうか認証．
+    // もしされていないならば，ログインページにリダイレクト．
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
+        console.log('aaaaa')
         next()
       } else {
+        console.log('bbb')
         next({
-          path: '/signin',
+          path: '/',
           query: { redirect: to.fullPath }
         })
       }
     })
   } else {
-    next() // next() を常に呼び出すようにしてください!
+    console.log('ccc')
+    next()
   }
 })
 
