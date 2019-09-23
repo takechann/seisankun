@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.b000bb43d225dfaceaf6eb06a0e08a59.js"
+  "precache-manifest.4e1af8eca5069caf8fd030f318a87016.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "seisankun"});

@@ -31,7 +31,11 @@ export default {
             this.$router.push('/about')
           },
           err => {
-            alert(err.message)
+            if (err.message === 'There is no user record corresponding to this identifier. The user may have been deleted.') {
+              alert('アカウントが存在しません')
+            } else {
+              alert(err.message)
+            }
           }
         )
     }

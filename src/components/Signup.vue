@@ -1,9 +1,9 @@
 <template>
   <div class='signUP'>
     <h2>Sign up</h2>
-    <input type="text" placeholder="Username" v-model="username">
-    <input type="password" placeholder="Password" v-model="password">
-    <button @click="signUp">Register</button>
+    <input type="text" placeholder="e-mailアドレス" v-model="username">
+    <input type="password" placeholder="パスワード" v-model="password">
+    <button @click="signUp">登録</button>
   </div>
 </template>
 
@@ -26,7 +26,14 @@ export default {
           alert('Create account: ', user.email)
         })
         .catch(error => {
-          alert(error.message)
+          if (error.message === 'The email address is badly formatted.') {
+            console.log('ok')
+            alert('アドレス表記が不適切です')
+          } else if (error.message === 'The password must be 6 characters long or more.') {
+            alert('パスワードは6文字以上を設定してください')
+          } else {
+            alert(error.message)
+          }
         })
     }
   }
